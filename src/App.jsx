@@ -1,26 +1,12 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./scss/app.scss";
 import Header from "./components/Header";
-import Categories from "./components/Categories";
-import Sort from "./components/Sort";
-import PizzaBlock from "./components/PizzaBlock/PizzaBlock";
-import Sceleton from "./components/PizzaBlock/Sceleton";
+
+import NotFound from "./pages/NotFound";
+import Cart from "./pages/Cart.jsx";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home.jsx";
 
 function App() {
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("https://66feabe72b9aac9c997ceec2.mockapi.io/items")
-      .then((res) => res.json())
-      .then((json) => {
-        setItems(json);
-        setIsLoading(false)
-      });
-  }, []);
-
   return (
     <>
       <div className="wrapper">
@@ -28,17 +14,11 @@ function App() {
 
         <div className="content">
           <div className="container">
-            <div className="content__top">
-              <Categories />
-
-              <Sort />
-            </div>
-            <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-              {isLoading
-                ? [...new Array(6)].map((_,index) => <Sceleton key={index} />)
-                : items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
-            </div>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/Cart" element={<Cart />} />
+              <Route path="/*" element={<NotFound />} />
+            </Routes>
           </div>
         </div>
       </div>
