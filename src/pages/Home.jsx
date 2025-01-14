@@ -16,9 +16,10 @@ const Home = () => {
         ``;
         setIsLoading(false);
       });
+    window.scrollTo(0, 0);
   }, []);
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
 
@@ -30,7 +31,7 @@ const Home = () => {
           ? [...new Array(6)].map((_, index) => <Sceleton key={index} />)
           : items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
       </div>
-    </>
+    </div>
   );
 };
 
